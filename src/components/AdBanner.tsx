@@ -36,21 +36,11 @@ export default function AdBanner({ adKey, height, width }: AdBannerProps) {
     }
   }, [adKey, height, width]);
 
-  // واجهة العرض: صندوق خارجي يضمن توسط الإعلان في الصفحة مع مساحات جمالية واضحة
+  // واجهة العرض المعدلة لتدعم الـ ID المطلوب للإعلانات المدمجة (Native Banners)
   return (
-    <div 
-      className="adsterra-container" 
-      style={{
-        display: 'block',
-        textAlign: 'center',
-        margin: '24px auto',
-        width: '100%',
-        minHeight: `${height}px`,
-        overflow: 'hidden'
-      }}
-    >
-      {/* هنا سيتم حقن الإعلان تلقائياً بواسطة الكود أعلاه */}
-      <div ref={adRef} style={{ display: 'inline-block' }} />
+    <div className="flex justify-center my-6 w-full">
+      {/* يحمل الـ ID الخاص بالحاوية ديناميكياً بناءً على الـ adKey */}
+      <div id={`container-${adKey}`} ref={adRef} />
     </div>
   );
 }
