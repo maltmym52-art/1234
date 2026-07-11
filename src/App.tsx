@@ -1416,26 +1416,17 @@ export default function App() {
                       >
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
-                      </button>
-                      {/* 🌟 تشغيل كود Adsterra الجديد الصافي 🌟 */}
+                      </button>{/* 🌟 الحل النهائي والمضمون لتشغيل الإعلان ديناميكياً 🌟 */}
 <div className="mt-6 flex justify-center w-full min-h-[90px]">
-  <div
-    dangerouslySetInnerHTML={{
-      __html: `
-        <div id="container-49444c03e28652c6f59b6b42871f0eed"></div>
-        <script type="text/javascript">
-          atOptions = {
-            'key' : '49444c03e28652c6f59b6b42871f0eed',
-            'format' : 'iframe',
-            'height' : 90,
-            'width' : 728,
-            'params' : {}
-          };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/49444c03e28652c6f59b6b42871f0eed/invoke.js"></script>
-      `,
-    }}
-  />
+  <iframe
+    src="//www.highperformanceformat.com/watchnew?key=49444c03e28652c6f59b6b42871f0eed"
+    width="728"
+    height="90"
+    frameBorder="0"
+    scrolling="no"
+    className="rounded-lg shadow-sm max-w-full"
+    key="ad-49444c03e28652c6f59b6b42871f0eed"
+  ></iframe>
 </div>
 
                     </div>
