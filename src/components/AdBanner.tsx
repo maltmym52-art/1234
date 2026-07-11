@@ -1,36 +1,27 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
-interface AdBannerProps {
-  adKey: string;
-}
-
-export default function AdBanner({ adKey }: AdBannerProps) {
-  const adRef = useRef<HTMLDivElement>(null);
-
+const AdBanner = ({ adKey, containerId }) => {
   useEffect(() => {
-    // التأكد من أن المكوّن موجود في الصفحة ولم يتم حقنه مسبقاً
-    if (adRef.current && !adRef.current.firstChild) {
-      const container = adRef.current;
+    // 1. تحديد الحاوية
+    const container = document.getElementById(containerId);
+    if (!container) return;
 
-      // 1. إنشاء الحاوية بالـ ID الديناميكي المطلوبة للسكربت
-      const adContainer = document.createElement('div');
-      adContainer.id = `container-${adKey}`;
-      container.appendChild(adContainer);
+    // 2. تنظيف الحاوية لضمان عدم التكرار
+    container.innerHTML = '';
 
-      // 2. إنشاء السكربت وحقنه
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = `//www.highperformanceformat.com/${adKey}/invoke.js`;
-      script.async = true;
+    // 3. إنشاء السكريبت ديناميكياً
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://pl30211000.effectivecpmnetwork.com/${adKey}/invoke.js`;
+    
+    // 4. الحقن
+    container.appendChild(script);
 
-      container.appendChild(script);
-    }
-  }, [adKey]);
+    // تنظيف عند إغلاق المكون
+    return () => { container.innerHTML = ''; };
+  }, [adKey, containerId]);
 
-  return (
-    <div className="flex justify-center my-6 w-full overflow-hidden min-h-[90px]">
-      {/* هنا سيتم توليد الإعلان داخل الأداة بتنسيق متناسق */}
-      <div ref={adRef} className="w-full text-center" />
-    </div>
-  );
-}
+  return <div id={containerId} className="min-h-[90px] w-full flex justify-center" />;
+};
+
+export default AdBanner;
