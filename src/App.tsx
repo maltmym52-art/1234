@@ -1417,18 +1417,13 @@ export default function App() {
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
-                      {/* 🌟 كود إعلان Adsterra المطور والآمن تماماً 🌟 */}
+                      {/* 🌟 الحل النهائي والفعال لإعلان Adsterra داخل الأدوات 🌟 */}
 <div className="mt-6 flex justify-center w-full min-h-[90px]">
-  <div id="adsterra-holder"></div>
-  <img 
-    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
-    className="hidden"
-    onLoad={() => {
-      const container = document.getElementById('adsterra-holder');
-      if (container && container.innerHTML === '') {
-        const scriptConf = document.createElement('script');
-        scriptConf.type = 'text/javascript';
-        scriptConf.text = `
+  <div
+    dangerouslySetInnerHTML={{
+      __html: `
+        <div id="container-877e7e4ff13f148d2f72292289d0db19"></div>
+        <script type="text/javascript">
           atOptions = {
             'key' : '877e7e4ff13f148d2f72292289d0db19',
             'format' : 'iframe',
@@ -1436,14 +1431,10 @@ export default function App() {
             'width' : 728,
             'params' : {}
           };
-        `;
-        const scriptSrc = document.createElement('script');
-        scriptSrc.type = 'text/javascript';
-        scriptSrc.src = '//www.highperformanceformat.com/877e7e4ff13f148d2f72292289d0db19/invoke.js';
-        container.appendChild(scriptConf);
-        container.appendChild(scriptSrc);
-      }
-    }} 
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/877e7e4ff13f148d2f72292289d0db19/invoke.js"></script>
+      `,
+    }}
   />
 </div>
 
