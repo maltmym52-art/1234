@@ -971,6 +971,7 @@ export default function App() {
                 <h2 className="font-display text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
                   {lang === 'ar' ? 'منصة الحاسبات والأدوات الشاملة' : 'Free Web Calculators'}
                 </h2>
+                <AdBanner adKey="877e7e4ff13f148d2f72292289d0db19" />
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm">
                   {lang === 'ar' 
                     ? 'ابحث وتهيّأ وحل أكثر من ٢٠٠ حاسبة عالية المنفعة الفورية عبر ١٣ قسماً تخصصياً. القوانين والمعادلات الرياضية كاملة، وميتا داتا JSON-LD مدمجة في كل لوحة لتسريع الأرشفة الحية.'
