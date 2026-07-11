@@ -971,9 +971,9 @@ export default function App() {
                 <h2 className="font-display text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
                   {lang === 'ar' ? 'منصة الحاسبات والأدوات الشاملة' : 'Free Web Calculators'}
                 </h2>
-                {/* الحاوية الكلاسيكية لإعلان الصفحة الرئيسية */}
-<div className="mb-6 flex justify-center w-full min-h-[90px]">
-  <div id="container-49444c03e28652c6f59b6b42871f0eed"></div>
+                <div className="mb-6 flex justify-center w-full min-h-[90px]">
+  <div id="container-877e7e4ff13f148d2f72292289d0db19"></div>
+  <script async="async" data-cfasync="false" src="https://pl30319874.effectivecpmnetwork.com/877e7e4ff13f148d2f72292289d0db19/invoke.js"></script>
 </div>
 
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm">
@@ -1421,9 +1421,9 @@ export default function App() {
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
-                      {/* الحاوية الكلاسيكية لإعلان الأدوات */}
-<div className="mt-6 flex justify-center w-full min-h-[90px]">
+                      <div className="mt-6 flex justify-center w-full min-h-[90px]">
   <div id="container-49444c03e28652c6f59b6b42871f0eed"></div>
+  <script async="async" data-cfasync="false" src="https://pl30211000.effectivecpmnetwork.com/49444c03e28652c6f59b6b42871f0eed/invoke.js"></script>
 </div>
 
                     </div>
