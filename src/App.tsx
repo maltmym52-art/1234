@@ -1417,22 +1417,22 @@ export default function App() {
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
-                      {/* 🌟 كود إعلان الأدوات الجديد والمنفصل 🌟 */}
+                      {/* 🌟 كود إعلان الأدوات الجديد كلياً 🌟 */}
 <div className="mt-6 flex justify-center w-full min-h-[90px]">
   <div
     dangerouslySetInnerHTML={{
       __html: `
-        <div id="container-f1d7e8327c4e378510ed2074193127b2"></div>
+        <div id="container-49444c03e28652c6f59b6b42871f0eed"></div>
         <script type="text/javascript">
           atOptions = {
-            'key' : 'f1d7e8327c4e378510ed2074193127b2',
+            'key' : '49444c03e28652c6f59b6b42871f0eed',
             'format' : 'iframe',
             'height' : 90,
             'width' : 728,
             'params' : {}
           };
         </script>
-        <script type="text/javascript" src="https://pl30177207.effectivecpmnetwork.com/f1d7e8327c4e378510ed2074193127b2/invoke.js"></script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/49444c03e28652c6f59b6b42871f0eed/invoke.js"></script>
       `,
     }}
   />
