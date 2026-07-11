@@ -1417,7 +1417,18 @@ export default function App() {
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
-                      <AdsterraZone zoneId="877e7e4ff13f148d2f72292289d0db19" />
+                      {/* 🌟 كود إعلان Adsterra المباشر 🌟 */}
+<div className="mt-6 flex justify-center w-full min-h-[90px]">
+  <iframe 
+    src="//www.highperformanceformat.com/watchnew?key=877e7e4ff13f148d2f72292289d0db19" 
+    width="728" 
+    height="90" 
+    frameBorder="0" 
+    scrolling="no"
+    className="rounded-lg shadow-sm max-w-full"
+  ></iframe>
+</div>
+
 
                     </div>
                   </div>
@@ -1634,43 +1645,6 @@ export default function App() {
           </div>
         </div>
       </footer>
-    </div>
-  );
-}
-interface AdsterraProps {
-  zoneId: string;
-}
-
-function AdsterraZone({ zoneId }: AdsterraProps) {
-  // أزلنا كلمة React. واعتمدنا على الاستيراد المباشر المتوافق مع ملفك
-  const adRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (adRef.current && adRef.current.innerHTML === '') {
-      const scriptConf = document.createElement('script');
-      scriptConf.type = 'text/javascript';
-      scriptConf.text = `
-        atOptions = {
-          'key' : '${zoneId}',
-          'format' : 'iframe',
-          'height' : 90,
-          'width' : 728,
-          'params' : {}
-        };
-      `;
-
-      const scriptSrc = document.createElement('script');
-      scriptSrc.type = 'text/javascript';
-      scriptSrc.src = `//www.highperformanceformat.com/${zoneId}/invoke.js`;
-
-      adRef.current.appendChild(scriptConf);
-      adRef.current.appendChild(scriptSrc);
-    }
-  }, [zoneId]);
-
-  return (
-    <div className="mt-6 flex justify-center w-full min-h-[90px]">
-      <div ref={adRef}></div>
     </div>
   );
 }
