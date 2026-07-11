@@ -1637,15 +1637,15 @@ export default function App() {
     </div>
   );
 }
-
 interface AdsterraProps {
   zoneId: string;
 }
 
 function AdsterraZone({ zoneId }: AdsterraProps) {
-  const adRef = React.useRef<HTMLDivElement>(null);
+  // أزلنا كلمة React. واعتمدنا على الاستيراد المباشر المتوافق مع ملفك
+  const adRef = useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (adRef.current && adRef.current.innerHTML === '') {
       const scriptConf = document.createElement('script');
       scriptConf.type = 'text/javascript';
