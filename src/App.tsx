@@ -1417,7 +1417,7 @@ export default function App() {
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
-                      {/* 🌟 كود إعلان الأدوات الجديد كلياً 🌟 */}
+                      {/* 🌟 تشغيل كود Adsterra الجديد الصافي 🌟 */}
 <div className="mt-6 flex justify-center w-full min-h-[90px]">
   <div
     dangerouslySetInnerHTML={{
