@@ -12,6 +12,37 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    
+   <!-- سكريبت الإعلانات الذكي المشترك -->
+<script type="text/javascript">
+  // دالة ذكية لتشغيل الإعلان داخل الحاوية المطلوبة يدوياً
+  function loadAdsterra(containerId) {
+    const container = document.getElementById(containerId);
+    if (container) {
+      container.innerHTML = ''; // تنظيف الحاوية أولاً
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://pl30211000.effectivecpmnetwork.com/49444c03e28652c6f59b6b42871f0eed/invoke.js';
+      container.appendChild(script);
+    }
+  }
+
+  // 1. تشغيل إعلان الصفحة الرئيسية فور تحميل الموقع
+  window.addEventListener('DOMContentLoaded', () => {
+    loadAdsterra('container-main-banner');
+  });
+
+  // 2. مراقبة التنقل داخل الموقع لإعادة تشغيل الإعلان في الأدوات تلقائياً
+  let lastUrl = location.href;
+  new MutationObserver(() => {
+    if (location.href !== lastUrl) {
+      lastUrl = location.href;
+      // ننتظر جزء من الثانية حتى تظهر أداة المستخدم ثم نشحن الإعلان بداخلها
+      setTimeout(() => {
+        loadAdsterra('container-49444c03e28652c6f59b6b42871f0eed');
+      }, 300);
+    }
+  }).observe(document, { subtree: true, childList: true });
+</script>
+ 
   </body>
 </html>
