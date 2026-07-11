@@ -1417,10 +1417,24 @@ export default function App() {
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
-                      {/* 🌟 حاوية إعلان الأدوات النظيفة 🌟 */}
-<div className="mt-6 flex justify-center w-full min-h-[90px]">
-  <div id="container-49444c03e28652c6f59b6b42871f0eed"></div>
-</div>
+                      {/* 🌟 مكون الإعلان الديناميكي المتجدد 🌟 */}
+<div 
+  className="mt-6 flex justify-center w-full min-h-[90px]"
+  key={window.location.pathname} // هذه الـ key تجبر React على إعادة إنشاء المكون عند كل تنقل
+  ref={(el) => {
+    if (el && el.innerHTML === '') {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://pl30211000.effectivecpmnetwork.com/49444c03e28652c6f59b6b42871f0eed/invoke.js';
+      
+      const container = document.createElement('div');
+      container.id = 'container-49444c03e28652c6f59b6b42871f0eed';
+      
+      el.appendChild(container);
+      el.appendChild(script);
+    }
+  }}
+/>
 
                     </div>
                   </div>
