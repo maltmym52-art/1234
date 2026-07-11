@@ -971,7 +971,24 @@ export default function App() {
                 <h2 className="font-display text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
                   {lang === 'ar' ? 'منصة الحاسبات والأدوات الشاملة' : 'Free Web Calculators'}
                 </h2>
-                <AdBanner adKey="877e7e4ff13f148d2f72292289d0db19" />
+                <div className="mb-6 flex justify-center w-full min-h-[90px]">
+  <div
+    ref={(el) => {
+      if (!el) return;
+      el.innerHTML = ''; 
+
+      const container = document.createElement('div');
+      container.id = 'container-49444c03e28652c6f59b6b42871f0eed';
+      el.appendChild(container);
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://pl30211000.effectivecpmnetwork.com/49444c03e28652c6f59b6b42871f0eed/invoke.js';
+      el.appendChild(script);
+    }}
+  />
+</div>
+
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm">
                   {lang === 'ar' 
                     ? 'ابحث وتهيّأ وحل أكثر من ٢٠٠ حاسبة عالية المنفعة الفورية عبر ١٣ قسماً تخصصياً. القوانين والمعادلات الرياضية كاملة، وميتا داتا JSON-LD مدمجة في كل لوحة لتسريع الأرشفة الحية.'
@@ -1417,7 +1434,27 @@ export default function App() {
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
-                      <AdBanner adKey="49444c03e28652c6f59b6b42871f0eed" containerId="tool-banner" />
+                      <div className="mt-6 flex justify-center w-full min-h-[90px]">
+  <div
+    ref={(el) => {
+      if (!el) return;
+      // تنظيف الحاوية لمنع التكرار نهائياً
+      el.innerHTML = ''; 
+      
+      // إنشاء الحاوية الخاصة بـ Adsterra بالـ ID المطلوب
+      const container = document.createElement('div');
+      container.id = 'container-49444c03e28652c6f59b6b42871f0eed';
+      el.appendChild(container);
+
+      // إنشاء السكربت وحقنه ليعمل فوراً مع كل رندرة للأداة
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://pl30211000.effectivecpmnetwork.com/49444c03e28652c6f59b6b42871f0eed/invoke.js';
+      el.appendChild(script);
+    }}
+  />
+</div>
+
 
                     </div>
                   </div>
