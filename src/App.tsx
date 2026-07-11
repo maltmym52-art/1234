@@ -1417,34 +1417,10 @@ export default function App() {
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
-                      {/* 🌟 الحل الهندسي النهائي والأكيد لإعلان الأدوات 🌟 */}
+                      {/* 🌟 حاوية إعلان الأدوات النظيفة 🌟 */}
 <div className="mt-6 flex justify-center w-full min-h-[90px]">
-  <div 
-    id="adsterra-dynamic-container"
-    ref={(el) => {
-      if (el && el.innerHTML === '') {
-        const scriptConf = document.createElement('script');
-        scriptConf.type = 'text/javascript';
-        scriptConf.text = `
-          atOptions = {
-            'key' : '49444c03e28652c6f59b6b42871f0eed',
-            'format' : 'iframe',
-            'height' : 90,
-            'width' : 728,
-            'params' : {}
-          };
-        `;
-        const scriptSrc = document.createElement('script');
-        scriptSrc.type = 'text/javascript';
-        scriptSrc.src = '//www.highperformanceformat.com/49444c03e28652c6f59b6b42871f0eed/invoke.js';
-        
-        el.appendChild(scriptConf);
-        el.appendChild(scriptSrc);
-      }
-    }}
-  ></div>
+  <div id="container-49444c03e28652c6f59b6b42871f0eed"></div>
 </div>
-
 
                     </div>
                   </div>
