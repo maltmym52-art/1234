@@ -1,0 +1,6 @@
+{
+  "name": "Web Calculators Platform",
+  "description": "A comprehensive collection of 200 interactive tools and calculators across 13 distinct categories, built for speed and ease of use.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
