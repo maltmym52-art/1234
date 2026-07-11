@@ -1417,18 +1417,35 @@ export default function App() {
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
-                      {/* 🌟 كود إعلان Adsterra المباشر 🌟 */}
+                      {/* 🌟 كود إعلان Adsterra المطور والآمن تماماً 🌟 */}
 <div className="mt-6 flex justify-center w-full min-h-[90px]">
-  <iframe 
-    src="//www.highperformanceformat.com/watchnew?key=877e7e4ff13f148d2f72292289d0db19" 
-    width="728" 
-    height="90" 
-    frameBorder="0" 
-    scrolling="no"
-    className="rounded-lg shadow-sm max-w-full"
-  ></iframe>
+  <div id="adsterra-holder"></div>
+  <img 
+    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
+    className="hidden"
+    onLoad={() => {
+      const container = document.getElementById('adsterra-holder');
+      if (container && container.innerHTML === '') {
+        const scriptConf = document.createElement('script');
+        scriptConf.type = 'text/javascript';
+        scriptConf.text = `
+          atOptions = {
+            'key' : '877e7e4ff13f148d2f72292289d0db19',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        `;
+        const scriptSrc = document.createElement('script');
+        scriptSrc.type = 'text/javascript';
+        scriptSrc.src = '//www.highperformanceformat.com/877e7e4ff13f148d2f72292289d0db19/invoke.js';
+        container.appendChild(scriptConf);
+        container.appendChild(scriptSrc);
+      }
+    }} 
+  />
 </div>
-
 
                     </div>
                   </div>
