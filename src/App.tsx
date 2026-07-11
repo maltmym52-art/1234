@@ -1417,25 +1417,9 @@ export default function App() {
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
-                      {/* 🌟 الحل النهائي والفعال لإعلان Adsterra داخل الأدوات 🌟 */}
+                      {/* حاوية الإعلان تحت الزر مباشرة */}
 <div className="mt-6 flex justify-center w-full min-h-[90px]">
-  <div
-    dangerouslySetInnerHTML={{
-      __html: `
-        <div id="container-877e7e4ff13f148d2f72292289d0db19"></div>
-        <script type="text/javascript">
-          atOptions = {
-            'key' : '877e7e4ff13f148d2f72292289d0db19',
-            'format' : 'iframe',
-            'height' : 90,
-            'width' : 728,
-            'params' : {}
-          };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/877e7e4ff13f148d2f72292289d0db19/invoke.js"></script>
-      `,
-    }}
-  />
+  <div id="container-877e7e4ff13f148d2f72292289d0db19"></div>
 </div>
 
                     </div>
