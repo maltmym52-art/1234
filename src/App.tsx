@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
 import AdBanner from './components/AdBanner';
-
 import {
   Dna,
   FlaskConical,
