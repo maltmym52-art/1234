@@ -1417,9 +1417,25 @@ export default function App() {
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
-                      {/* حاوية الإعلان تحت الزر مباشرة */}
+                      {/* 🌟 كود إعلان الأدوات الجديد والمنفصل 🌟 */}
 <div className="mt-6 flex justify-center w-full min-h-[90px]">
-  <div id="container-877e7e4ff13f148d2f72292289d0db19"></div>
+  <div
+    dangerouslySetInnerHTML={{
+      __html: `
+        <div id="container-f1d7e8327c4e378510ed2074193127b2"></div>
+        <script type="text/javascript">
+          atOptions = {
+            'key' : 'f1d7e8327c4e378510ed2074193127b2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        </script>
+        <script type="text/javascript" src="https://pl30177207.effectivecpmnetwork.com/f1d7e8327c4e378510ed2074193127b2/invoke.js"></script>
+      `,
+    }}
+  />
 </div>
 
                     </div>
