@@ -972,21 +972,7 @@ export default function App() {
                   {lang === 'ar' ? 'منصة الحاسبات والأدوات الشاملة' : 'Free Web Calculators'}
                 </h2>
                 <div className="mb-6 flex justify-center w-full min-h-[90px]">
-  <div
-    ref={(el) => {
-      if (!el) return;
-      el.innerHTML = ''; 
-
-      const container = document.createElement('div');
-      container.id = 'container-49444c03e28652c6f59b6b42871f0eed';
-      el.appendChild(container);
-
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://pl30211000.effectivecpmnetwork.com/49444c03e28652c6f59b6b42871f0eed/invoke.js';
-      el.appendChild(script);
-    }}
-  />
+  <div id="container-main-banner"></div>
 </div>
 
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm">
@@ -1435,26 +1421,8 @@ export default function App() {
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
                       <div className="mt-6 flex justify-center w-full min-h-[90px]">
-  <div
-    ref={(el) => {
-      if (!el) return;
-      // تنظيف الحاوية لمنع التكرار نهائياً
-      el.innerHTML = ''; 
-      
-      // إنشاء الحاوية الخاصة بـ Adsterra بالـ ID المطلوب
-      const container = document.createElement('div');
-      container.id = 'container-49444c03e28652c6f59b6b42871f0eed';
-      el.appendChild(container);
-
-      // إنشاء السكربت وحقنه ليعمل فوراً مع كل رندرة للأداة
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://pl30211000.effectivecpmnetwork.com/49444c03e28652c6f59b6b42871f0eed/invoke.js';
-      el.appendChild(script);
-    }}
-  />
+  <div id="container-49444c03e28652c6f59b6b42871f0eed"></div>
 </div>
-
 
                     </div>
                   </div>
