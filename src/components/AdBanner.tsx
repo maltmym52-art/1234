@@ -1,22 +1,24 @@
 import { useEffect, useRef } from 'react';
 
-// 1. تحديد نوع البيانات التي يحتاجها المكوّن عند استدعائه
 interface AdBannerProps {
-  adKey: string;   // رقم المفتاح الخاص بالإعلان من Adsterra
-  height: number;  // طول الإعلان (مثال: 90)
-  width: number;   // عرض الإعلان (مثال: 728)
+  adKey: string;
+  height: number;
+  width: number;
 }
 
 export default function AdBanner({ adKey, height, width }: AdBannerProps) {
-  // إنشاء إشارة مرجعية (مَرسى) لتحديد مكان حقن الإعلان في الصفحة
   const adRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // التأكد من أن المكان موجود في الصفحة، ولم يتم تحميل الإعلان فيه مسبقاً
     if (adRef.current && !adRef.current.firstChild) {
       const container = adRef.current;
 
-      // أ) تعريف المتغير العالمي الذي يطلبه موقع Adsterra لقراءة مقاسات الإعلان
+      // 1. إنشاء صندوق الإعلان المدمج برمجياً وضبط الـ ID المطلوب له تماماً
+      const adContainer = document.createElement('div');
+      adContainer.id = `container-${adKey}`;
+      container.appendChild(adContainer);
+
+      // 2. إعداد خيارات Adsterra العالمية
       (window as any).atOptions = {
         key: adKey,
         format: 'iframe',
@@ -25,22 +27,24 @@ export default function AdBanner({ adKey, height, width }: AdBannerProps) {
         params: {},
       };
 
-      // ب) إنشاء عنصر السكربت (<script>) برمجياً داخل الذاكرة
+      // 3. إنشاء واستدعاء سكربت الإعلان
       const script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = `//www.highperformanceformat.com/${adKey}/invoke.js`;
       script.async = true;
 
-      // ج) وضع السكربت داخل صندوق الـ div ليبدأ المتصفح بتحميل الإعلان وعرضه
+      // 4. حقن السكربت بجانب صندوق الإعلان تماماً
       container.appendChild(script);
     }
   }, [adKey, height, width]);
 
-  // واجهة العرض المعدلة لتدعم الـ ID المطلوب للإعلانات المدمجة (Native Banners)
   return (
-    <div className="flex justify-center my-6 w-full">
-      {/* يحمل الـ ID الخاص بالحاوية ديناميكياً بناءً على الـ adKey */}
-      <div id={`container-${adKey}`} ref={adRef} />
+    <div 
+      className="flex justify-center my-6 w-full overflow-hidden" 
+      style={{ minHeight: `${height}px` }}
+    >
+      {/* هذا الصندوق الخارجي الثابت الذي سيتم توليد الإعلان بداخله برمجياً */}
+      <div ref={adRef} className="w-full text-center" />
     </div>
   );
 }
