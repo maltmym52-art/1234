@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface AdBannerProps {
   containerId: string;
@@ -6,16 +6,34 @@ interface AdBannerProps {
 }
 
 const AdBanner = ({ containerId, scriptSrc }: AdBannerProps) => {
+  // استخدام عدّاد لتغيير الـ key الداخلي وإجبار المكون على إعادة البناء بالكامل
+  const [adRefreshKey, setAdRefreshKey] = useState(0);
+
   useEffect(() => {
-    if (typeof window === 'undefined' || !containerId || !scriptSrc) return;
+    if (typeof window === 'undefined') return;
 
     let lastPath = window.location.href;
 
-    const loadAd = () => {
-      const container = document.getElementById(containerId);
+    // مراقبة تغير الرابط (الانتقال بين الأدوات)
+    const checkInterval = setInterval(() => {
+      if (window.location.href !== lastPath) {
+        lastPath = window.location.href;
+        // زيادة العداد لتدمير الحاوية القديمة وبناء حاوية جديدة تماماً
+        setAdRefreshKey((prev) => prev + 1);
+      }
+    }, 400);
+
+    return () => clearInterval(checkInterval);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !containerId || !scriptSrc) return;
+
+    // ننتظر قليلاً للتأكد من أن الحاوية الجديدة تم رندرها في الـ DOM
+    const timer = setTimeout(() => {
+      const container = document.getElementById(`${containerId}-${adRefreshKey}`);
       if (!container) return;
 
-      // تنظيف الحاوية بالكامل قبل الحقن الجديد
       container.innerHTML = '';
 
       const script = document.createElement('script');
@@ -24,30 +42,20 @@ const AdBanner = ({ containerId, scriptSrc }: AdBannerProps) => {
       script.src = scriptSrc;
 
       container.appendChild(script);
-    };
-
-    // تحميل الإعلان عند أول ظهور للمكون
-    loadAd();
-
-    // مراقبة ذكية وتلقائية لتغير الرابط (الأدوات) كل 500 ملي ثانية
-    const checkInterval = setInterval(() => {
-      if (window.location.href !== lastPath) {
-        lastPath = window.location.href;
-        loadAd(); // إعادة تحميل الإعلان فوراً عند الانتقال لأداة أخرى
-      }
-    }, 500);
+    }, 50);
 
     return () => {
-      clearInterval(checkInterval);
-      const container = document.getElementById(containerId);
+      clearTimeout(timer);
+      const container = document.getElementById(`${containerId}-${adRefreshKey}`);
       if (container) container.innerHTML = '';
     };
-  }, [containerId, scriptSrc]);
+  }, [containerId, scriptSrc, adRefreshKey]);
 
   return (
     <div 
-      id={containerId} 
-      className="w-full flex justify-center items-center my-4" 
+      key={adRefreshKey}
+      id={`${containerId}-${adRefreshKey}`} 
+      className="w-full flex justify-center items-center my-4 min-h-[100px]" 
       style={{ minHeight: '100px' }} 
     />
   );
