@@ -26,7 +26,13 @@ const AdBanner = ({ containerId, scriptSrc }: AdBannerProps) => {
     };
   }, [containerId, scriptSrc]);
 
-  return <div id={containerId} className="min-h-[100px] w-full flex justify-center items-center my-4" />;
+  return (
+    <div 
+      id={containerId} 
+      className="min-h-[100px] w-full flex justify-center items-center my-4" 
+      style={{ minHeight: '100px' }} 
+    />
+  );
 };
 
 export default AdBanner;
