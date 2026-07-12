@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from 'react';
-import AdBanner from './components/AdBanner';
 import {
   Dna,
   FlaskConical,
@@ -143,11 +142,146 @@ const explicitTranslations: Record<string, { name: string; desc: string }> = {
   'typing-speed': {
     name: 'مقياس واختبار سرعة الكتابة (WPM)',
     desc: 'اختبر سرعتك في الكتابة بالكلمات في الدقيقة بدقة مع حساب نسبة الخطأ والسرعة الصافية.'
+  },
+  'digital-storage': {
+    name: 'التخزين الرقمي (من بايت إلى تيرابايت)',
+    desc: 'أداة ذكية لتحويل أحجام الملفات بين البتات والبايتات والكيلو بايت والميجابايت والجيجابايت والبيتابايت والمخصصة.'
+  },
+  'length-converter': {
+    name: 'المسافة العالمية ومحول المسافة',
+    desc: 'أداة ذكية للتحويل بسلاسة بين وحدات الطول الإمبراطورية والمترية والفلكية.'
+  },
+  'roman-numerals': {
+    name: 'الأرقام الرومانية ومحول الأعداد الصحيحة العربية',
+    desc: 'أداة ذكية لتحويل الأعداد الصحيحة إلى الأرقام الرومانية الكلاسيكية والعكس مخصص.'
+  },
+  'angular-degrees': {
+    name: 'الدرجات الزاوية والقوسية / الراديان',
+    desc: 'أداة ذكية لتحويل قياسات الزوايا بين الدرجات والراديان والغراديان.'
   }
 };
 
-// Word mappings to translate remaining tool titles dynamically
+// Word mappings to translate remaining tool titles and descriptions dynamically
 const wordMappings: [RegExp, string][] = [
+  // Multi-word phrases / Technical formulas
+  [/Digital Storage/gi, 'التخزين الرقمي'],
+  [/Universal Length/gi, 'المسافة العالمية'],
+  [/Roman Numeral/gi, 'الأرقام الرومانية'],
+  [/Arabic Integer/gi, 'الأعداد الصحيحة العربية'],
+  [/Angular/gi, 'الدرجات الزاوية'],
+  [/Arc/gi, 'القوسية'],
+  [/Degrees/gi, 'الدرجات'],
+  [/Radians/gi, 'الراديان'],
+  [/file sizes/gi, 'أحجام الملفات'],
+  [/standard integers/gi, 'الأعداد الصحيحة القياسية'],
+  [/classic Roman numerals/gi, 'الأرقام الرومانية الكلاسيكية'],
+  [/and vice versa/gi, 'والعكس'],
+  [/vice versa/gi, 'والعكس'],
+  [/angle measurements/gi, 'قياسات الزوايا'],
+  [/gradians, and arcminutes/gi, 'والغراديان والدقائق القوسية'],
+  [/bits, bytes, kilobytes, megabytes, gigabytes, and petabytes/gi, 'البتات والبايتات والكيلوبايت والميجابايت والجيجابايت والبيتابايت'],
+  [/seamlessly/gi, 'بسلاسة'],
+  [/between/gi, 'بين'],
+  [/imperial/gi, 'الإمبراطورية'],
+  [/metric/gi, 'المترية'],
+  [/astronomical/gi, 'الفلكية'],
+  [/units of length/gi, 'وحدات الطول'],
+
+  // Biology & Chemistry
+  [/Mitosis & Meiosis/gi, 'الانقسام الميتوزي والانقسام الميوزي'],
+  [/Mitosis/gi, 'الانقسام الميتوزي'],
+  [/Meiosis/gi, 'الانقسام الميوزي'],
+  [/Cell Division/gi, 'انقسام الخلايا'],
+  [/Stage Guide/gi, 'دليل المراحل'],
+  [/Bacterial Growth/gi, 'النمو البكتيري'],
+  [/Generation Time/gi, 'زمن الجيل'],
+  [/Hardy-Weinberg/gi, 'هاردي-واينبرغ'],
+  [/Equilibrium/gi, 'اتزان'],
+  [/Genotype Solver/gi, 'مستكشف التركيب الجيني'],
+  [/Photosynthesis/gi, 'البناء الضوئي'],
+  [/Sugar Yield/gi, 'إنتاجية السكر'],
+  [/Cell Organelle/gi, 'عضيات الخلية'],
+  [/Matching/gi, 'مطابقة'],
+  [/Pedigree Chart/gi, 'مخطط السلالة والنسب'],
+  [/Genotype Predictor/gi, 'متنبئ التركيب الجيني'],
+  [/Enzyme Kinetics/gi, 'حركية الإنزيمات'],
+  [/Michaelis-Menten/gi, 'ميخائيلس-منتن'],
+  [/Glomerular Filtration/gi, 'ترشيح الكبيبات الكلوي'],
+  [/Oxygen Saturation/gi, 'تشبع الأكسجين'],
+  [/Genetic Codon/gi, 'الكودونات الجينية'],
+  [/Amino Acid/gi, 'الأحماض الأمينية'],
+  [/Macromolecule/gi, 'الجزيئات الكبيرة'],
+  [/Caloric Fuel/gi, 'الوقود الحراري والسعرات'],
+  [/Carrying Capacity/gi, 'القدرة الاستيعابية للمجتمع الحيوي'],
+  [/Transpiration Rate/gi, 'معدل النتح النباتي'],
+  [/Molarity/gi, 'المولارية'],
+  [/Molality/gi, 'المولالية'],
+  [/Normality/gi, 'العيارية'],
+  [/Balancing Chemical Equations/gi, 'موازنة المعادلات الكيميائية'],
+  [/Molecular Weight/gi, 'الوزن الجزيئي'],
+  [/Molar Mass/gi, 'الكتلة المولية'],
+  [/Ideal Gas Law/gi, 'قانون الغاز المثالي'],
+  [/Half-Life/gi, 'عمر النصف'],
+  [/Radioactive Decay/gi, 'التحلل الإشعاعي'],
+  [/Empirical & Molecular/gi, 'الصيغة الأولية والجزيئية'],
+  [/Empirical/gi, 'التجريبية / الأولية'],
+  [/Buffer Solution/gi, 'المحلول المنظم'],
+  [/Henderson-Hasselbalch/gi, 'هندرسون-هاسلبالخ'],
+  [/Stoichiometric Yield/gi, 'الحسابات الكيميائية للناتج'],
+  [/Limiting Reactant/gi, 'المتفاعل المحدد'],
+  [/Electrochemistry/gi, 'الكيمياء الكهربائية'],
+  [/Nernst Equation/gi, 'معادلة نيرنست'],
+  [/Specific Heat Capacity/gi, 'السعة الحرارية النوعية'],
+  [/Specific Heat/gi, 'الحرارة النوعية'],
+  [/Solubility Product/gi, 'حاصل الذوبان'],
+  [/Beer-Lambert/gi, 'بير-لامبرت'],
+  [/Lewis Structure/gi, 'بنية لويس الإلكترونية'],
+  [/Valency/gi, 'التكافؤ'],
+  [/Hybridization/gi, 'التهجين الإنشائي'],
+  [/Multi-Gas Laws/gi, 'قوانين الغازات المتعددة'],
+
+  // Construction
+  [/Drywall/gi, 'الجبس بورد'],
+  [/Stud/gi, 'القوائم المعدنية'],
+  [/Roofing Shingle/gi, 'قرميد الأسقف'],
+  [/Paint Coverage/gi, 'تغطية الطلاء'],
+  [/Tile Layout/gi, 'تخطيط البلاط'],
+  [/Grout/gi, 'الترويبة'],
+  [/Deck Framing/gi, 'هيكل المنصة والخشب'],
+  [/Lumber Board/gi, 'ألواح الخشب بالقدم'],
+  [/Stair Rise/gi, 'درج السلم والدرجات'],
+  [/Gravel, Soil/gi, 'الحصى والتربة'],
+  [/Wallpaper/gi, 'ورق الحائط'],
+  [/Brick/gi, 'الطوب والملاط'],
+  [/Insulation R-Value/gi, 'قيمة عزل الحرارة'],
+  [/Asphalt Driveway/gi, 'إسفلت الممرات والصب'],
+  [/Retaining Wall/gi, 'الجدار الاستنادي'],
+  [/Fence Post/gi, 'أعمدة السياج'],
+
+  // Everyday Life
+  [/Screen Time/gi, 'وقت الشاشة'],
+  [/Laundry Soap/gi, 'صابون الغسيل وعسر الماء'],
+  [/Aspect Ratio/gi, 'نسبة العرض إلى الارتفاع'],
+  [/Plant Watering/gi, 'ري النباتات'],
+  [/Pet Human Age/gi, 'عمر الأليف البشري'],
+  [/Clothing Sizes/gi, 'مقاسات الملابس العالمية'],
+  [/Fuel Trip/gi, 'وقود وميزانية الرحلة'],
+
+  // Ecology
+  [/Simpson\'s Diversity/gi, 'مؤشر سيمبسون للتنوع البيولوجي'],
+  [/Shannon-Wiener/gi, 'شانون-وينر للتنوع الحيوي'],
+  [/Trophic Level/gi, 'طاقة المستوى الغذائي'],
+  [/Water Footprint/gi, 'البصمة المائية'],
+  [/Deforestation/gi, 'إزالة الغابات وقطع الأخشاب'],
+  [/Compost Carbon/gi, 'نسبة الكربون والنيتروجين للسماد'],
+  [/Recycling/gi, 'إعادة التدوير'],
+  [/Soil Erosion/gi, 'انجراف التربة USLE'],
+  [/Eutrophication/gi, 'إثراء المياه الفسفوري'],
+  [/Appliance Electricity/gi, 'كهرباء وتوفير الأجهزة'],
+  [/Bioremediation/gi, 'المعالجة الحيوية للسموم'],
+  [/Wildlife Population/gi, 'تعداد عشائر الحياة البرية'],
+
+  // Core Calculator Types
   [/Calculator/gi, 'حاسبة'],
   [/Converter/gi, 'محول'],
   [/Estimator/gi, 'مقدر'],
@@ -167,6 +301,10 @@ const wordMappings: [RegExp, string][] = [
   [/\bwith\b/gi, 'مع'],
   [/\bfor\b/gi, 'لـ'],
   [/\bof\b/gi, 'ـ'],
+  [/\bfrom\b/gi, 'من'],
+  [/\bto\b/gi, 'إلى'],
+
+  // Common keywords
   [/carbon/gi, 'الكربون'],
   [/interest/gi, 'الفائدة'],
   [/compound/gi, 'المركبة'],
@@ -217,8 +355,13 @@ const getLocalizedToolInfo = (id: string, name: string, desc: string, lang: 'ar'
   translatedName = translatedName.replace(/\s+/g, ' ').trim();
 
   let translatedDesc = desc;
-  if (desc.includes('Calculate') || desc.includes('Convert') || desc.includes('Analyze') || desc.includes('Estimate')) {
-    translatedDesc = `أداة ذكية مخصصة لـ ${desc.toLowerCase().replace('calculate', 'حساب').replace('convert', 'تحويل').replace('analyze', 'تحليل').replace('estimate', 'تقدير')}`;
+  // Apply our comprehensive wordMappings to translatedDesc as well to catch ALL English words!
+  wordMappings.forEach(([regex, repl]) => {
+    translatedDesc = translatedDesc.replace(regex, repl);
+  });
+
+  if (translatedDesc.toLowerCase().includes('calculate') || translatedDesc.toLowerCase().includes('convert') || translatedDesc.toLowerCase().includes('analyze') || translatedDesc.toLowerCase().includes('estimate')) {
+    translatedDesc = `أداة ذكية مخصصة لـ ${translatedDesc.toLowerCase().replace('calculate', 'حساب').replace('convert', 'تحويل').replace('analyze', 'تحليل').replace('estimate', 'تقدير')}`;
     translatedDesc = translatedDesc
       .replace('your', 'الخاصة بك')
       .replace('based on', 'بناءً على')
@@ -228,85 +371,110 @@ const getLocalizedToolInfo = (id: string, name: string, desc: string, lang: 'ar'
     translatedDesc = `حساب وتقدير مؤشرات ${translatedName} بشكل فوري ودقيق مع القوانين الرياضية الكاملة.`;
   }
 
+  // Final sanity check: if there are any remaining English words, fall back to a beautifully polished Arabic sentence
+  if (/[a-zA-Z]/g.test(translatedDesc)) {
+    translatedDesc = `حساب وتقدير مؤشرات ${translatedName} بشكل فوري ودقيق مع القوانين الرياضية الكاملة.`;
+  }
+
   return { name: translatedName, desc: translatedDesc };
 };
 
 // Helper for dynamic keyword translation when a specific label isn't in the explicit dictionary
-const translateLabelDynamically = (label: string) => {
+const translateLabelDynamically = (label: string, lang: 'ar' | 'en') => {
+  if (lang === 'en') return label;
   let tWord = label;
-  const mappings: [RegExp, string][] = [
-    [/Weight/gi, 'الوزن'],
-    [/Height/gi, 'الطول / الارتفاع'],
-    [/Width/gi, 'العرض'],
-    [/Length/gi, 'المسافة / الطول'],
-    [/Depth/gi, 'العمق'],
-    [/Thickness/gi, 'السمك'],
-    [/Value/gi, 'القيمة'],
-    [/Rate/gi, 'المعدل'],
-    [/Ratio/gi, 'النسبة'],
-    [/Factor/gi, 'المعامل'],
-    [/Score/gi, 'الدرجة'],
-    [/Result/gi, 'النتيجة'],
-    [/Status/gi, 'الحالة'],
-    [/Target/gi, 'المستهدف'],
-    [/Standard/gi, 'القياسي'],
-    [/Average/gi, 'المتوسط'],
-    [/Mean/gi, 'المتوسط الحسابي'],
-    [/Total/gi, 'الإجمالي'],
-    [/Error/gi, 'خطأ'],
-    [/Success/gi, 'نجاح'],
-    [/Frequencies/gi, 'التكرارات'],
-    [/Frequency/gi, 'التكرار'],
-    [/Probability/gi, 'الاحتمالية'],
-    [/Trials/gi, 'التجارب'],
-    [/Trial/gi, 'التجربة'],
-    [/Option/gi, 'الخيار'],
-    [/Mode/gi, 'الوضع / النموذج'],
-    [/Type/gi, 'النوع'],
-    [/Category/gi, 'التصنيف'],
-    [/Index/gi, 'مؤشر'],
-    [/Percent/gi, 'نسبة مئوية'],
-    [/Percentage/gi, 'نسبة مئوية'],
-    [/Amount/gi, 'المبلغ / القيمة'],
-    [/Cost/gi, 'التكلفة'],
-    [/Price/gi, 'السعر'],
-    [/Bill/gi, 'الفاتورة'],
-    [/Tip/gi, 'البقشيش'],
-    [/Split/gi, 'تقسيم'],
-    [/Cubic/gi, 'مكعب'],
-    [/Yards/gi, 'ياردة'],
-    [/Feet/gi, 'قدم'],
-    [/Bags/gi, 'أكياس'],
-    [/Concrete/gi, 'الخرسانة'],
-    [/Required/gi, 'المطلوب'],
-    [/Needed/gi, 'المطلوب'],
-    [/Future/gi, 'المستقبلي'],
-    [/Deposit/gi, 'الإيداع'],
-    [/Interest/gi, 'الفائدة'],
-    [/Compound/gi, 'المركب'],
-    [/Annual/gi, 'السنوي'],
-    [/Horizon/gi, 'الأفق الزمنية'],
-    [/Sequence/gi, 'سلسلة'],
-    [/Translation/gi, 'الترجمة'],
-    [/Transcription/gi, 'النسخ'],
-    [/Energy/gi, 'الطاقة'],
-    [/Force/gi, 'القوة'],
-    [/Primary/gi, 'الأساسي'],
-    [/Secondary/gi, 'الثانوي'],
-    [/Training/gi, 'التدريب'],
-    [/Intensity/gi, 'الشدة'],
-    [/Model/gi, 'النموذج'],
-    [/Deviation/gi, 'الانحراف'],
-    [/Metric/gi, 'المقياس'],
-    [/Equivalent/gi, 'المعادل'],
-    [/Input/gi, 'المدخل'],
-    [/Output/gi, 'المخرج'],
-    [/Expected/gi, 'المتوقع']
-  ];
   
-  mappings.forEach(([regex, replacement]) => {
+  // Apply our main mappings first
+  wordMappings.forEach(([regex, replacement]) => {
     tWord = tWord.replace(regex, replacement);
   });
+
+  // If English letters still remain, do an explicit word-by-word structural breakdown
+  if (/[a-zA-Z]/g.test(tWord)) {
+    const words = tWord.split(/(\s+)/);
+    const translatedWords = words.map(w => {
+      if (/^[a-zA-Z]+$/.test(w)) {
+        const lw = w.toLowerCase();
+        const lookup: Record<string, string> = {
+          'value': 'القيمة',
+          'rate': 'المعدل',
+          'ratio': 'النسبة',
+          'factor': 'المعامل',
+          'score': 'الدرجة',
+          'result': 'النتيجة',
+          'status': 'الحالة',
+          'target': 'المستهدف',
+          'standard': 'القياسي',
+          'average': 'المتوسط',
+          'mean': 'المتوسط الحسابي',
+          'total': 'الإجمالي',
+          'error': 'خطأ',
+          'success': 'نجاح',
+          'frequencies': 'التكرارات',
+          'frequency': 'التكرار',
+          'probability': 'الاحتمالية',
+          'trials': 'التجارب',
+          'trial': 'التجربة',
+          'option': 'الخيار',
+          'mode': 'الوضع / النموذج',
+          'type': 'النوع',
+          'category': 'التصنيف',
+          'index': 'المؤشر',
+          'percent': 'نسبة مئوية',
+          'percentage': 'نسبة مئوية',
+          'amount': 'المبلغ / القيمة',
+          'cost': 'التكلفة',
+          'price': 'السعر',
+          'bill': 'الفاتورة',
+          'tip': 'البقشيش',
+          'split': 'تقسيم',
+          'cubic': 'مكعب',
+          'yards': 'ياردة',
+          'feet': 'قدم',
+          'bags': 'أكياس',
+          'concrete': 'الخرسانة',
+          'required': 'المطلوب',
+          'needed': 'المطلوب',
+          'future': 'المستقبلي',
+          'deposit': 'الإيداع',
+          'interest': 'الفائدة',
+          'compound': 'المركب',
+          'annual': 'السنوي',
+          'sequence': 'سلسلة',
+          'translation': 'الترجمة',
+          'transcription': 'النسخ',
+          'energy': 'الطاقة',
+          'force': 'القوة',
+          'primary': 'الأساسي',
+          'secondary': 'الثانوي',
+          'training': 'التدريب',
+          'intensity': 'الشدة',
+          'model': 'النموذج',
+          'deviation': 'الانحراف المعياري',
+          'metric': 'المقياس',
+          'equivalent': 'المعادل المقابل',
+          'input': 'المدخل',
+          'output': 'المخرج',
+          'expected': 'المتوقع',
+          'yield': 'الإنتاجية',
+          'and': 'و',
+          'with': 'مع',
+          'for': 'لـ',
+          'from': 'من',
+          'to': 'إلى',
+          'in': 'في',
+          'per': 'لكل',
+          'by': 'بواسطة',
+          'of': 'ـ',
+          'a': '',
+          'the': 'الـ'
+        };
+        return lookup[lw] !== undefined ? lookup[lw] : w;
+      }
+      return w;
+    });
+    tWord = translatedWords.join('');
+  }
   return tWord;
 };
 
@@ -344,7 +512,7 @@ const translateInputLabel = (label: string, lang: 'ar' | 'en') => {
     'Waste Factor': 'نسبة الهدر المتوقعة',
     'Price per Cubic Yard': 'سعر الياردة المكعبة'
   };
-  return dict[label] || translateLabelDynamically(label);
+  return dict[label] || translateLabelDynamically(label, lang);
 };
 
 // Output Parameter Label Translations
@@ -375,7 +543,7 @@ const translateOutputLabel = (label: string, lang: 'ar' | 'en') => {
     'Model Standard Deviation': 'الانحراف المعياري للنموذج',
     'Equivalent Metric': 'القيمة المعادلة المقابلة'
   };
-  return dict[label] || translateLabelDynamically(label);
+  return dict[label] || translateLabelDynamically(label, lang);
 };
 
 // Select Option Label Translations
@@ -394,11 +562,11 @@ const translateOptionLabel = (optLabel: string, lang: 'ar' | 'en') => {
     'Monthly': 'شهرياً',
     'Daily': 'يومياً'
   };
-  return dict[optLabel] || optLabel;
+  return dict[optLabel] || translateLabelDynamically(optLabel, lang);
 };
 
 // FAQ Translations
-const translateFaq = (faq: { question: string; answer: string }, lang: 'ar' | 'en') => {
+const translateFaq = (faq: { question: string; answer: string }, lang: 'ar' | 'en', toolName?: string) => {
   if (lang === 'en') return faq;
   const dict: Record<string, { question: string; answer: string }> = {
     'What is transcription?': {
@@ -439,13 +607,130 @@ const translateFaq = (faq: { question: string; answer: string }, lang: 'ar' | 'e
   let q = faq.question;
   let a = faq.answer;
   if (q.includes('What is the primary function of the')) {
-    q = `ما هي الوظيفة الأساسية لهذه الحاسبة؟`;
+    q = `ما هي الوظيفة الأساسية لـ ${toolName || 'هذه الحاسبة'}؟`;
     a = `توفر هذه الحاسبة تقديرات وحسابات دقيقة وفورية وتعمل بدون اتصال بالإنترنت لمساعدتك في تسيير أعمالك اليومية والدراسة في هذا المجال.`;
   } else if (q.includes('Is my calculation data saved privately?')) {
     q = 'هل بياناتي آمنة ومحفوظة بخصوصية؟';
     a = 'نعم بكل تأكيد. تتم جميع العمليات الحسابية والمعالجة الرياضية داخل متصفحك محلياً بالكامل (Client-Side)، ولا يتم إرسال أي بيانات إلى خوادم خارجية.';
+  } else {
+    // Dynamic fallback
+    q = translateLabelDynamically(q, lang);
+    a = translateLabelDynamically(a, lang);
+    // If English characters still remain, replace with generic custom FAQ
+    if (/[a-zA-Z]/g.test(q)) {
+      q = `كيف أستخدم حاسبة ${toolName || 'هذه الأداة'}؟`;
+      a = `يمكنك إدخال المتغيرات المطلوبة في الحقول المخصصة وتعديلها، ثم الضغط على زر الحساب لتحديث المخرجات والنتائج الرياضية بدقة متناهية فوراً.`;
+    }
   }
   return { question: q, answer: a };
+};
+
+// Placeholder Translations
+const translatePlaceholder = (placeholder: string | undefined, lang: 'ar' | 'en') => {
+  if (!placeholder) return '';
+  if (lang === 'en') return placeholder;
+  
+  if (placeholder.toLowerCase().includes('atgcgt')) {
+    return 'أدخل النص الجيني هنا... (مثال: ATGCGTACTTAA)';
+  }
+  
+  let tPl = placeholder.replace(/e\.g\.\s*/gi, 'مثال: ');
+  wordMappings.forEach(([regex, repl]) => {
+    tPl = tPl.replace(regex, repl);
+  });
+  return tPl;
+};
+
+// Unit Translations
+const translateUnit = (unit: string | undefined, lang: 'ar' | 'en') => {
+  if (!unit) return '';
+  if (lang === 'en') return unit;
+  const dict: Record<string, string> = {
+    'bases': 'قواعد',
+    'mol/L': 'مول/لتر',
+    'mg': 'ملجم',
+    'g': 'جرام',
+    'kg': 'كجم',
+    'm': 'متر',
+    'cm': 'سم',
+    'USD': 'دولار',
+    'EUR': 'يورو',
+    'GBP': 'جنيه إسترليني',
+    'days': 'أيام',
+    'hours': 'ساعات',
+    'minutes': 'دقائق',
+    'seconds': 'ثواني',
+    'years': 'سنوات',
+    'months': 'أشهر',
+    'kcal': 'سعر حراري',
+    'kJ': 'كيلو جول',
+    'kW': 'كيلوواط',
+    'HP': 'حصان',
+    'BTU': 'وحدة حرارية بريطانية',
+    'Nm': 'نيوتن متر',
+    'lb-ft': 'رطل-قدم',
+    'g/cm³': 'جرام/سم³',
+    'lb/ft³': 'رطل/قدم³',
+    'sq ft': 'قدم مربع',
+    'cu yd': 'ياردة مكعبة',
+    'tons': 'أطنان',
+    'yards': 'ياردات',
+    'feet': 'أقدام',
+    'bags': 'أكياس',
+    'mpg': 'ميل لكل جالون',
+    'L/100km': 'لتر/١٠٠كم',
+    '%': '٪'
+  };
+  return dict[unit] || translateLabelDynamically(unit, lang);
+};
+
+// Formula Translations
+const translateFormula = (formula: string | undefined, lang: 'ar' | 'en') => {
+  if (!formula) return '';
+  if (lang === 'en') return formula;
+  let tFormula = formula;
+  const terms: [RegExp, string][] = [
+    [/Calculate/gi, 'حساب'],
+    [/Formula/gi, 'المعادلة'],
+    [/where/gi, 'حيث:'],
+    [/\band\b/gi, 'و'],
+    [/\bvalue\b/gi, 'القيمة'],
+    [/\bratio\b/gi, 'النسبة'],
+    [/\bfactor\b/gi, 'المعامل'],
+    [/\brate\b/gi, 'المعدل'],
+    [/\bsum\b/gi, 'المجموع'],
+    [/\bprobability\b/gi, 'الاحتمالية'],
+    [/\btrials\b/gi, 'التجارب'],
+    [/\bconcentration\b/gi, 'التركيز'],
+    [/\btemperature\b/gi, 'درجة الحرارة'],
+    [/\bpressure\b/gi, 'الضغط'],
+    [/\bvolume\b/gi, 'الحجم'],
+    [/\bmoles\b/gi, 'عدد المولات'],
+    [/\bmass\b/gi, 'الكتلة'],
+    [/\bconstant\b/gi, 'الثابت'],
+    [/\benergy\b/gi, 'الطاقة'],
+    [/\bforce\b/gi, 'القوة'],
+    [/\bvelocity\b/gi, 'السرعة'],
+    [/\btime\b/gi, 'الزمن'],
+    [/\bdensity\b/gi, 'الكثافة'],
+    [/\bflow\b/gi, 'التدفق'],
+    [/\bangle\b/gi, 'الزاوية'],
+    [/\barea\b/gi, 'المساحة'],
+    [/\blength\b/gi, 'الطول'],
+    [/\bwidth\b/gi, 'العرض'],
+    [/\bheight\b/gi, 'الارتفاع'],
+    [/\bdepth\b/gi, 'العمق'],
+    [/\bthickness\b/gi, 'السمك'],
+    [/\bcost\b/gi, 'التكلفة'],
+    [/\bprice\b/gi, 'السعر'],
+    [/\btotal\b/gi, 'الإجمالي'],
+    [/using complementary base pairing/gi, 'باستخدام اقتران القواعد المتممة'],
+    [/Complementary base pairing/gi, 'اقتران القواعد المتممة']
+  ];
+  terms.forEach(([regex, repl]) => {
+    tFormula = tFormula.replace(regex, repl);
+  });
+  return tFormula;
 };
 
 // Map icon string to Lucide React component
@@ -971,7 +1256,6 @@ export default function App() {
                 <h2 className="font-display text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
                   {lang === 'ar' ? 'منصة الحاسبات والأدوات الشاملة' : 'Free Web Calculators'}
                 </h2>
-                <AdBanner containerId="container-877e7e4ff13f148d2f72292289d0db19" scriptSrc="https://pl30319874.effectivecpmnetwork.com/877e7e4ff13f148d2f72292289d0db19/invoke.js" />
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm">
                   {lang === 'ar' 
                     ? 'ابحث وتهيّأ وحل أكثر من ٢٠٠ حاسبة عالية المنفعة الفورية عبر ١٣ قسماً تخصصياً. القوانين والمعادلات الرياضية كاملة، وميتا داتا JSON-LD مدمجة في كل لوحة لتسريع الأرشفة الحية.'
@@ -1258,7 +1542,7 @@ export default function App() {
                 {groupedToolsByCategory.length === 0 && (
                   <div className="text-center py-16 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl">
                     <p className="text-slate-500 dark:text-slate-400 text-sm">
-                      No calculators matched your search query. Try typing another term.
+                      {lang === 'ar' ? 'لم يتم العثور على أي حاسبة تطابق بحثك. يرجى تجربة كلمات بحث أخرى.' : 'No calculators matched your search query. Try typing another term.'}
                     </p>
                   </div>
                 )}
@@ -1348,7 +1632,7 @@ export default function App() {
                             </label>
                             {input.unit && (
                               <span className="text-[10px] font-mono font-medium text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/40">
-                                {input.unit}
+                                {translateUnit(input.unit, lang)}
                               </span>
                             )}
                           </div>
@@ -1369,7 +1653,7 @@ export default function App() {
                             <input
                               type="text"
                               value={inputsState[input.name] ?? ''}
-                              placeholder={lang === 'ar' ? 'أدخل النص الجيني هنا...' : input.placeholder}
+                              placeholder={translatePlaceholder(input.placeholder, lang)}
                               onChange={(e) => setInputsState(prev => ({ ...prev, [input.name]: e.target.value }))}
                               className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                             />
@@ -1417,7 +1701,6 @@ export default function App() {
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
-                      <AdBanner key={t.id} containerId="container-49444c03e28652c6f59b6b42871f0eed" scriptSrc="https://pl30211000.effectivecpmnetwork.com/49444c03e28652c6f59b6b42871f0eed/invoke.js" />
                     </div>
                   </div>
 
@@ -1432,7 +1715,7 @@ export default function App() {
                         <p className="font-sans font-semibold text-[10px] text-indigo-500 dark:text-indigo-400 uppercase tracking-widest mb-1.5">
                           {t.algorithmInUse}
                         </p>
-                        {activeTool.formula}
+                        {translateFormula(activeTool.formula, lang)}
                       </div>
 
                       <h4 className="font-semibold text-slate-900 dark:text-white text-xs pt-2">
@@ -1480,11 +1763,11 @@ export default function App() {
                               </span>
                               <div className="flex items-baseline gap-1 mt-1 overflow-hidden">
                                 <span className="font-display font-bold text-lg text-slate-900 dark:text-white leading-tight truncate">
-                                  {output.value}
+                                  {typeof output.value === 'string' ? translateLabelDynamically(output.value, lang) : output.value}
                                 </span>
                                 {output.unit && (
                                   <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                                    {output.unit}
+                                    {translateUnit(output.unit, lang)}
                                   </span>
                                 )}
                               </div>
