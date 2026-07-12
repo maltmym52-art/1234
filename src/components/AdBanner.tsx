@@ -7,14 +7,15 @@ interface AdBannerProps {
 
 const AdBanner = ({ containerId, scriptSrc }: AdBannerProps) => {
   useEffect(() => {
-    // حماية تامة ضد الانهيار أثناء الـ Build أو التشغيل
     if (typeof window === 'undefined' || !containerId || !scriptSrc) return;
+
+    let lastPath = window.location.href;
 
     const loadAd = () => {
       const container = document.getElementById(containerId);
       if (!container) return;
 
-      // تفريغ الحاوية لحقن الإعلان الجديد ونظافة الـ DOM
+      // تنظيف الحاوية بالكامل قبل الحقن الجديد
       container.innerHTML = '';
 
       const script = document.createElement('script');
@@ -25,14 +26,19 @@ const AdBanner = ({ containerId, scriptSrc }: AdBannerProps) => {
       container.appendChild(script);
     };
 
-    // تشغيل الإعلان فوراً عند تحميل المكون
+    // تحميل الإعلان عند أول ظهور للمكون
     loadAd();
 
-    // مستمع مدمج: يعيد تشغيل الإعلان تلقائياً عند انتقال المستخدم بين الأدوات (تغير الرابط)
-    window.addEventListener('popstate', loadAd);
+    // مراقبة ذكية وتلقائية لتغير الرابط (الأدوات) كل 500 ملي ثانية
+    const checkInterval = setInterval(() => {
+      if (window.location.href !== lastPath) {
+        lastPath = window.location.href;
+        loadAd(); // إعادة تحميل الإعلان فوراً عند الانتقال لأداة أخرى
+      }
+    }, 500);
 
     return () => {
-      window.removeEventListener('popstate', loadAd);
+      clearInterval(checkInterval);
       const container = document.getElementById(containerId);
       if (container) container.innerHTML = '';
     };
