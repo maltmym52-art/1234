@@ -1418,7 +1418,8 @@ export default function App() {
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
-                      <AdBanner key={activeTool?.id || 'tool-ad'} containerId="container-49444c03e28652c6f59b6b42871f0eed" scriptSrc="https://pl30211000.effectivecpmnetwork.com/49444c03e28652c6f59b6b42871f0eed/invoke.js" />
+                      <AdBanner key={t?.id || 'tool-ad'} containerId="container-49444c03e28652c6f59b6b42871f0eed" scriptSrc="https://pl30211000.effectivecpmnetwork.com/49444c03e28652c6f59b6b42871f0eed/invoke.js" />
+
 
                     </div>
                   </div>
