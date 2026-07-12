@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface AdBannerProps {
   containerId: string;
@@ -6,58 +6,49 @@ interface AdBannerProps {
 }
 
 const AdBanner = ({ containerId, scriptSrc }: AdBannerProps) => {
-  // استخدام عدّاد لتغيير الـ key الداخلي وإجبار المكون على إعادة البناء بالكامل
-  const [adRefreshKey, setAdRefreshKey] = useState(0);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    const iframe = iframeRef.current;
+    if (!iframe) return;
 
-    let lastPath = window.location.href;
+    // كود الـ HTML التقليدي للإعلان الذي سيتم تشغيله داخل الـ iframe المعزول
+    const adHtml = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <style>
+            body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden; background: transparent; }
+          </style>
+        </head>
+        <body>
+          <script async="async" data-cfasync="false" src="${scriptSrc}"></script>
+          <div id="${containerId}"></div>
+        </body>
+      </html>
+    `;
 
-    // مراقبة تغير الرابط (الانتقال بين الأدوات)
-    const checkInterval = setInterval(() => {
-      if (window.location.href !== lastPath) {
-        lastPath = window.location.href;
-        // زيادة العداد لتدمير الحاوية القديمة وبناء حاوية جديدة تماماً
-        setAdRefreshKey((prev) => prev + 1);
-      }
-    }, 400);
-
-    return () => clearInterval(checkInterval);
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || !containerId || !scriptSrc) return;
-
-    // ننتظر قليلاً للتأكد من أن الحاوية الجديدة تم رندرها في الـ DOM
-    const timer = setTimeout(() => {
-      const container = document.getElementById(`${containerId}-${adRefreshKey}`);
-      if (!container) return;
-
-      container.innerHTML = '';
-
-      const script = document.createElement('script');
-      script.async = true;
-      script.setAttribute('data-cfasync', 'false');
-      script.src = scriptSrc;
-
-      container.appendChild(script);
-    }, 50);
-
-    return () => {
-      clearTimeout(timer);
-      const container = document.getElementById(`${containerId}-${adRefreshKey}`);
-      if (container) container.innerHTML = '';
-    };
-  }, [containerId, scriptSrc, adRefreshKey]);
+    // حقن الكود وتحديث الـ iframe لإجبار الإعلان على الظهور من جديد عند كل رندر
+    const doc = iframe.contentDocument || iframe.contentWindow?.document;
+    if (doc) {
+      doc.open();
+      doc.write(adHtml);
+      doc.close();
+    }
+  }, [containerId, scriptSrc]);
 
   return (
-    <div 
-      key={adRefreshKey}
-      id={`${containerId}-${adRefreshKey}`} 
-      className="w-full flex justify-center items-center my-4 min-h-[100px]" 
-      style={{ minHeight: '100px' }} 
-    />
+    <div className="w-full flex justify-center items-center my-4 min-h-[100px]">
+      <iframe
+        ref={iframeRef}
+        title="Ad Frame"
+        width="100%"
+        height="100"
+        frameBorder="0"
+        scrolling="no"
+        style={{ border: 'none', overflow: 'hidden', minHeight: '100px' }}
+      />
+    </div>
   );
 };
 
