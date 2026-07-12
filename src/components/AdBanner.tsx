@@ -7,13 +7,16 @@ interface AdBannerProps {
 
 const AdBanner = ({ containerId, scriptSrc }: AdBannerProps) => {
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    // التأكد من أن الكود يعمل داخل المتصفح فقط وبشكل آمن
+    if (typeof window === 'undefined' || !containerId) return;
 
     const container = document.getElementById(containerId);
     if (!container) return;
 
+    // تنظيف المحتوى القديم لمنع تكرار الإعلان
     container.innerHTML = '';
 
+    // بناء سكريبت الإعلان ديناميكياً
     const script = document.createElement('script');
     script.async = true;
     script.setAttribute('data-cfasync', 'false');
@@ -29,7 +32,7 @@ const AdBanner = ({ containerId, scriptSrc }: AdBannerProps) => {
   return (
     <div 
       id={containerId} 
-      className="min-h-[100px] w-full flex justify-center items-center my-4" 
+      className="w-full flex justify-center items-center my-4" 
       style={{ minHeight: '100px' }} 
     />
   );
