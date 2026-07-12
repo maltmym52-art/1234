@@ -7,24 +7,33 @@ interface AdBannerProps {
 
 const AdBanner = ({ containerId, scriptSrc }: AdBannerProps) => {
   useEffect(() => {
-    // التأكد من أن الكود يعمل داخل المتصفح فقط وبشكل آمن
-    if (typeof window === 'undefined' || !containerId) return;
+    // حماية تامة ضد الانهيار أثناء الـ Build أو التشغيل
+    if (typeof window === 'undefined' || !containerId || !scriptSrc) return;
 
-    const container = document.getElementById(containerId);
-    if (!container) return;
+    const loadAd = () => {
+      const container = document.getElementById(containerId);
+      if (!container) return;
 
-    // تنظيف المحتوى القديم لمنع تكرار الإعلان
-    container.innerHTML = '';
+      // تفريغ الحاوية لحقن الإعلان الجديد ونظافة الـ DOM
+      container.innerHTML = '';
 
-    // بناء سكريبت الإعلان ديناميكياً
-    const script = document.createElement('script');
-    script.async = true;
-    script.setAttribute('data-cfasync', 'false');
-    script.src = scriptSrc;
+      const script = document.createElement('script');
+      script.async = true;
+      script.setAttribute('data-cfasync', 'false');
+      script.src = scriptSrc;
 
-    container.appendChild(script);
+      container.appendChild(script);
+    };
+
+    // تشغيل الإعلان فوراً عند تحميل المكون
+    loadAd();
+
+    // مستمع مدمج: يعيد تشغيل الإعلان تلقائياً عند انتقال المستخدم بين الأدوات (تغير الرابط)
+    window.addEventListener('popstate', loadAd);
 
     return () => {
+      window.removeEventListener('popstate', loadAd);
+      const container = document.getElementById(containerId);
       if (container) container.innerHTML = '';
     };
   }, [containerId, scriptSrc]);
