@@ -973,6 +973,7 @@ export default function App() {
                 </h2>
                 <AdBanner containerId="container-877e7e4ff13f148d2f72292289d0db19" scriptSrc="https://pl30319874.effectivecpmnetwork.com/877e7e4ff13f148d2f72292289d0db19/invoke.js" />
 
+
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm">
                   {lang === 'ar' 
                     ? 'ابحث وتهيّأ وحل أكثر من ٢٠٠ حاسبة عالية المنفعة الفورية عبر ١٣ قسماً تخصصياً. القوانين والمعادلات الرياضية كاملة، وميتا داتا JSON-LD مدمجة في كل لوحة لتسريع الأرشفة الحية.'
@@ -1418,7 +1419,8 @@ export default function App() {
                         <Calculator className="w-4.5 h-4.5" />
                         <span>{justCalculated ? t.calculatedSuccessfully : t.calculateBtn}</span>
                       </button>
-                      <AdBanner key={window.location.pathname} containerId="container-49444c03e28652c6f59b6b42871f0eed" scriptSrc="https://pl30211000.effectivecpmnetwork.com/49444c03e28652c6f59b6b42871f0eed/invoke.js" />
+                      <AdBanner key={t.id} containerId="container-49444c03e28652c6f59b6b42871f0eed" scriptSrc="https://pl30211000.effectivecpmnetwork.com/49444c03e28652c6f59b6b42871f0eed/invoke.js" />
+
 
                     </div>
                   </div>
